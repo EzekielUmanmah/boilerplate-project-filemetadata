@@ -3,7 +3,7 @@
 var express = require('express');
 var cors = require('cors');
 const multer = require('multer');
-const upload = multer({ dest: 'Upload'})
+const upload = multer();
 
 var app = express();
 
@@ -16,7 +16,8 @@ app.get('/', function (req, res) {
 
 app.post('/api/fileanalyse',upload.single('upfile'), (req,res,next)=>{
   const {originalname, mimetype, size} = req.file;
-  res.json({
+  
+  res.status(200).json({
     name: originalname,
     type: mimetype,
     size
@@ -24,6 +25,6 @@ app.post('/api/fileanalyse',upload.single('upfile'), (req,res,next)=>{
 })
 
 
-app.listen(process.env.PORT || 3000, function () {
+app.listen(process.env.PORT || 2000, function () {
   console.log('Node.js listening ...');
 });
